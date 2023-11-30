@@ -1,0 +1,25 @@
+{
+  "name": "green-chain-pli-hackathon-2.0",
+  "version": "1.0.0",
+  "description": "Blockchain-Driven Carbon Management integrates blockchain for transparency, automated credit systems, XDC-20 tokens for carbon trading, AI predictions, user-friendly interfaces, incentives, compliance, and public awareness. Revolutionizing emissions control for a sustainable future.",
+  "main": "APP.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tech-creed/Green-Chain-PLI-Hackathon-2.0.git"
+  },
+  "keywords": [],
+  "author": "MUKILAN | TENSH KUMAR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tech-creed/Green-Chain-PLI-Hackathon-2.0/issues"
+  },
+  "homepage": "https://github.com/tech-creed/Green-Chain-PLI-Hackathon-2.0#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  }
+}
