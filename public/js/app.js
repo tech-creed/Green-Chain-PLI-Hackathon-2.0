@@ -57,11 +57,26 @@ App = {
     },
 
     loadContracts: async () => {
-
         // users ABI
         const UserContract = await $.getJSON('/contracts/UserAuth.json')
-        App.contracts.user = TruffleContract(UserContract)
-        App.contracts.user.setProvider(App.web3Provider)
+        const contractAddress = '0x73a1637b532c203fD2Cb2f30DaC2A5C920D08E36';
+        const App.contracts.user = new web3.eth.Contract(UserContract.abi, contractAddress);
+
+        // App.contracts.user = TruffleContract(UserContract)
+        // App.contracts.user.setProvider(App.web3Provider)
+
+        // // store the deployes version of the smart contract
+        // App.user = await App.contracts.user.deployed()
+        console.log(user)
+
+        const exists = await user.methods.checkUserExists(App.account).call();
+        console.log(exists)
+
+        // const tx = await user.methods.setUser(App.account, 'name', 'privilege', 'authority').send({ from: App.account });
+        // console.log(tx.transactionHash);
+
+        
+
     },
 
     connectWalletRegister: async () => {
@@ -73,13 +88,22 @@ App = {
         data['authority'] = document.getElementById('register_authority').value
         data['wallet_id'] = App.account
 
-        await App.user.setUser(data['wallet_id'], data['name'], data['role'], data['authority'], { from: App.account })
-        let r = await fetch('/auth/register', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-type': 'application/json;charset=UTF-8' } })
-        r = await r.json()
-        if (r) {
-            alert(data['name'] + ' Welcome to the GreenChain EcoSystem')
-            window.location.href = `/dashboard`
-        }
+        const exists = await contractInstance.methods.checkUserExists(App.account).call();
+        console.log(exists)
+        // if(await App.user.checkUserExists(data['wallet_id']) === 'false'){
+        //     alert('hi')
+        // }else{
+        //     alert('hello')
+        // }
+        alert('hi')
+
+        // await App.user.setUser(data['wallet_id'], data['name'], data['role'], data['authority'], { from: App.account })
+        // let r = await fetch('/auth/register', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-type': 'application/json;charset=UTF-8' } })
+        // r = await r.json()
+        // if (r) {
+        //     alert(data['name'] + ' Welcome to the GreenChain EcoSystem')
+        //     window.location.href = `/dashboard`
+        // }
     },
 
     connectWalletLogin: async () => {
