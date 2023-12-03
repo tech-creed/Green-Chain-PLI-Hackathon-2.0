@@ -22,7 +22,7 @@
         <div class="form">
             <span class="title">Register</span>
 
-            <form onSubmit="">
+            <form onSubmit="App.connectWalletRegister(); return false;">
                 <div class="input-field">
                     <select id="register_role" name="" id="">
                         <option value="" hidden>Select Role</option>
@@ -64,6 +64,7 @@
 
     <!-- Template Main JS File -->
     <script src="/js/main.js"></script>
+    <script src="/js/app.js"></script>
 
 </body>
 

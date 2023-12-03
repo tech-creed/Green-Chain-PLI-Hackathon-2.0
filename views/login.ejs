@@ -20,7 +20,7 @@
             <div class="form">
                 <span class="title">Welcome Back,</span>
 
-                <form onSubmit="">
+                <form onSubmit="App.connectWalletLogin(); return false;">
                     <div class="input-field button">
                         <input type="submit" value="Connect Wallet">
                     </div>
@@ -42,6 +42,7 @@
 
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
+  <script src="/js/app.js"></script>
 
 </body>
 </html>
