@@ -62,6 +62,7 @@ App = {
         const contractAddress = '0x73a1637b532c203fD2Cb2f30DaC2A5C920D08E36';
         App.contracts.user = new web3.eth.Contract(UserContract.abi, contractAddress);
      
+
     },
 
     connectWalletRegister: async () => {
@@ -87,12 +88,15 @@ App = {
         data = {}
         data['wallet_id'] = App.account
         
-        var userOrNot = await App.user.checkUserExists(App.account)
+        var userOrNot = await App.contracts.user.methods.checkUserExists(App.account)
+        
+        console.log(App.contracts.user.methods.Users(App.account))
+        
         if (userOrNot) {
-            await App.user.Users(App.account).then(dataChain => {
-                data['name'] = dataChain['name']
-                data['role'] = dataChain['privilege']
-            })
+            var dataChain = App.contracts.user.methods.Users(App.account)
+
+            data['name'] = dataChain['name']
+            data['role'] = dataChain['privilege']
             let r = await fetch('/auth/login', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-type': 'application/json; charset=UTF-8' } })
             r = await r.json();
             if (r) {
