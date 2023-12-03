@@ -1,0 +1,70 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===== Icons ===== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="/css/login_register.css">
+
+    <title>GreenChain | Register</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="form">
+            <span class="title">Register</span>
+
+            <form onSubmit="">
+                <div class="input-field">
+                    <select id="register_role" name="" id="">
+                        <option value="" hidden>Select Role</option>
+                        <option value="individual">Individual</option>
+                        <option value="industry">Industry</option>
+                        <option value="government">Government</option>
+                    </select>
+                </div>
+                <div class="input-field">
+                    <input id="register_name" type="text" placeholder="Enter Name" required>
+                    <i class="bi bi-check"></i>
+                </div>
+
+                <div class="input-field">
+                    <input id="register_authority" type="text"
+                        placeholder="Authority(applicable for Goverment & Industry)">
+                    <i class="bi bi-check"></i>
+                </div>
+
+                <div class="input-field button">
+                    <input type="submit" value="Connect Wallet">
+                </div>
+
+            </form>
+
+            <div class="login-signup">
+                <span class="text">Already Member ?
+                    <a href="/auth/login" class="text">Connect Now</a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.0-rc.0/web3.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/truffle-contract@4.0.31/dist/truffle-contract.js'></script>
+
+    <!-- Template Main JS File -->
+    <script src="/js/main.js"></script>
+
+</body>
+
+</html>
