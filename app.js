@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -18,5 +19,5 @@ app.listen(PORT, () => {
 });
 
 app.use('/',(req,res)=>{
-    res.send("Node Server Intilized !!");
+    res.render("index");
 }) 
