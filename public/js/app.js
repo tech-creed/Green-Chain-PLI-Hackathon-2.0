@@ -92,11 +92,11 @@ App = {
         await App.load()
         data = {}
         data['wallet_id'] = App.account
-        
+
         var userOrNot = await App.contracts.user.methods.checkUserExists(App.account)
-        
+
         console.log(App.contracts.user.methods.Users(App.account))
-        
+
         if (userOrNot) {
             var dataChain = await App.contracts.user.methods.Users(App.account).call()
 
@@ -110,5 +110,63 @@ App = {
         } else {
             alert('need to register')
         }
-    }
+    },
+
+    EmissionMark: async () => {
+        await App.load()
+
+        const walletID = document.getElementById('walletID').value;
+        const co2 = document.getElementById('co2').value;
+        const emissionDate = document.getElementById('emissionDate').value.toString();
+        const etherValue = web3.utils.toWei((parseFloat(0.001) * parseFloat(co2)).toString(), 'ether');
+
+        App.contracts.emission.methods
+            .createEmissionData(walletID, co2, emissionDate)
+            .send({ from: App.account, value: etherValue })
+            .on('transactionHash', (hash) => {
+                console.log('Transaction hash:', hash);
+                window.location.href = '/mark-co2'
+            })
+            .on('error', (error) => {
+                console.error('Error:', error);
+            });
+    },
+
+    FetchEmission: async () => {
+        await App.load()
+        const taskCount = await App.contracts.emission.methods.dataCount().call()
+        const userWallet = document.cookie.split(';')[0].split('=')[1]
+
+        tabel_body = document.getElementById('tabel-body')
+        html = ``
+        cum_emission = 0
+        cum_fees = 0
+
+        x_data = []
+        y_data = []
+
+        j = 1
+        for (var i = 1; i <= taskCount; i++) {
+            const task = await App.contracts.emission.methods.emmis(i).call()
+            if (userWallet == task[0]) {
+                cum_emission += parseFloat(task[1])
+                cum_fees += parseFloat(task[3])
+
+                x_data.push(task[2])
+                y_data.push(task[1])
+
+                html +=
+                    `<tr>
+          <th scope="row">${j}</th>
+          <td>${task[2]}</td>
+          <td>${task[0]}</td>
+          <td>${task[1]}</td>
+          <td>${task[3] / 1000}</td>
+          <td>${cum_emission}</td>
+          </tr>`
+                j += 1
+            }
+        }
+        tabel_body.innerHTML = html
+    },
 }
