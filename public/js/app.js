@@ -170,7 +170,7 @@ App = {
         tabel_body.innerHTML = html
     },
 
-    FetchAllEmission:async()=>{
+    FetchAllEmission: async () => {
         await App.load()
 
         const taskCount = await App.contracts.emission.methods.dataCount().call()
@@ -191,5 +191,53 @@ App = {
         }
         tabel_body.innerHTML = html
 
+    },
+
+    SpecificFetchEmission: async () => {
+        await App.load()
+
+        const taskCount = await App.contracts.emission.methods.dataCount().call()
+        const walletID = document.getElementById('walletSearch').value
+
+        let userWallet;
+
+        if (walletID.toLowerCase().startsWith('xdc')) {
+            userWallet = '0x' + walletID.slice(3);
+        } else if (walletID.toLowerCase().startsWith('0x')) {
+            userWallet = walletID;
+        } else {
+            alert('Invalid input address');
+        }
+
+        tabel_body = document.getElementById('trans-tabel-body')
+        html = ``
+        cum_emission = 0
+        cum_fees = 0
+        x_data = []
+        y_data = []
+        j = 1
+        for (var i = 1; i <= taskCount; i++) {
+            const task = await App.contracts.emission.methods.emmis(i).call()
+            console.log(task)
+            if (userWallet == task[0]) {
+                cum_emission += parseFloat(task[1])
+                cum_fees += parseFloat(task[3])
+                x_data.push(task[2])
+                y_data.push(task[1])
+
+                html +=
+                    `<tr>
+          <th scope="row">${j}</th>
+          <td>${task[2]}</td>
+          <td>${task[0]}</td>
+          <td>${task[1]}</td>
+          <td>${task[3] / 1000}</td>
+          <td>${cum_emission}</td>
+          </tr>`
+                j += 1
+            }
+        }
+
+        tabel_body.innerHTML = html
     },
 }
