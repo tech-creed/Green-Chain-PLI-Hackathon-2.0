@@ -61,7 +61,12 @@ App = {
         const UserContract = await $.getJSON('/contracts/UserAuth.json')
         const contractAddress = '0x73a1637b532c203fD2Cb2f30DaC2A5C920D08E36';
         App.contracts.user = new web3.eth.Contract(UserContract.abi, contractAddress);
-     
+
+        // emission contract ABI
+        const emissionContract = await $.getJSON('/contracts/Emission.json')
+        const emissionContractAddress = '0xB2Bb3Dd210A16b4B13B1Da54DF3A1fe1037C03F0'
+        App.contracts.emission = new web3.eth.Contract(emissionContract.abi, emissionContractAddress);
+
 
     },
 
