@@ -169,4 +169,27 @@ App = {
         }
         tabel_body.innerHTML = html
     },
+
+    FetchAllEmission:async()=>{
+        await App.load()
+
+        const taskCount = await App.contracts.emission.methods.dataCount().call()
+
+        tabel_body = document.getElementById('full-tabel-body')
+        html = ``
+
+        for (var i = 1; i <= taskCount; i++) {
+            const task = await App.contracts.emission.methods.emmis(i).call()
+            html +=
+                `<tr>
+        <th scope="row">${i}</th>
+        <td>${task[2]}</td>
+        <td>${task[0]}</td>
+        <td>${task[1]}</td>
+        <td>${task[3]}</td>
+        </tr>`
+        }
+        tabel_body.innerHTML = html
+
+    },
 }

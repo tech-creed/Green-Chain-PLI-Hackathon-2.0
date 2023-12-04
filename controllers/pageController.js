@@ -20,4 +20,8 @@ const report_co2 = async(req,res)=>{
     res.render('reportCo2')
 }
 
-module.exports = {homePage, dashboard,mark_co2,report_co2}
+const all_emission = async(req,res)=>{
+    res.render('allEmission')
+}
+
+module.exports = {homePage, dashboard,mark_co2,report_co2,all_emission}
