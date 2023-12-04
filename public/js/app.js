@@ -93,7 +93,7 @@ App = {
         console.log(App.contracts.user.methods.Users(App.account))
         
         if (userOrNot) {
-            var dataChain = App.contracts.user.methods.Users(App.account)
+            var dataChain = await App.contracts.user.methods.Users(App.account).call()
 
             data['name'] = dataChain['name']
             data['role'] = dataChain['privilege']

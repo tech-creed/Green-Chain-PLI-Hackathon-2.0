@@ -11,9 +11,12 @@ app.use(express.urlencoded({ extended: true }));
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
-
+// routes
+const DashboardRoute = require('./routes/dashboardRoute')
 const AuthRoute = require('./routes/authRoute')
 
+app.use('/',DashboardRoute)
+app.use('/auth',AuthRoute)
 
 PORT = 52332
 app.listen(PORT, () => {
@@ -21,10 +24,3 @@ app.listen(PORT, () => {
 }).on("error", function(err) {
     console.log(err);
 });
-
-
-app.use('/auth',AuthRoute)
-
-app.use('/',(req,res)=>{
-    res.render("index");
-}) 
