@@ -82,9 +82,9 @@ App = {
         data['authority'] = document.getElementById('register_authority').value
         data['wallet_id'] = App.account
 
-        if(data['role'] == "government"){
+        if (data['role'] == "government") {
             await App.contracts.token.methods.grantGovernmentPrivilege(App.account).send({ from: App.account })
-        }else if(data['role'] == "industry"){
+        } else if (data['role'] == "industry") {
             await App.contracts.token.methods.grantIndustryPrivilege(App.account).send({ from: App.account })
         }
 
@@ -273,6 +273,20 @@ App = {
             .on('error', (error) => {
                 console.error('Error:', error);
             });
-       
+
+    },
+
+    setTokenPrice: async () => {
+        await App.load()
+        const newPrice = document.querySelector('#newPrice').value;
+        await App.contracts.token.methods.setTokenPrice(newPrice)
+            .send({ from: App.account })
+            .on('transactionHash', (hash) => {
+                console.log('Transaction hash:', hash);
+                window.location.href = '/dashboard'
+            })
+            .on('error', (error) => {
+                console.error('Error:', error);
+            });
     },
 }
