@@ -82,6 +82,12 @@ App = {
         data['authority'] = document.getElementById('register_authority').value
         data['wallet_id'] = App.account
 
+        if(data['role'] == "government"){
+            await App.contracts.token.methods.grantGovernmentPrivilege(App.account).send({ from: App.account })
+        }else if(data['role'] == "industry"){
+            await App.contracts.token.methods.grantIndustryPrivilege(App.account).send({ from: App.account })
+        }
+
         await App.contracts.user.methods.setUser(data['wallet_id'], data['name'], data['role'], data['authority']).send({ from: App.account });
         let r = await fetch('/auth/register', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-type': 'application/json;charset=UTF-8' } })
         r = await r.json()
@@ -246,7 +252,16 @@ App = {
 
     initAllowance: async () => {
         await App.load()
-        const industryWalletID = document.querySelector('#industryWalletID').value;
+        const walletID = document.querySelector('#industryWalletID').value;
+
+        if (walletID.toLowerCase().startsWith('xdc')) {
+            industryWalletID = '0x' + walletID.slice(3);
+        } else if (walletID.toLowerCase().startsWith('0x')) {
+            industryWalletID = walletID;
+        } else {
+            alert('Invalid input address');
+        }
+
         const initTokens = document.querySelector('#initTokens').value;
         const maxAllowance = document.querySelector('#maxAllowance').value;
         await App.contracts.token.methods.initialAllowance(industryWalletID, maxAllowance, initTokens)
