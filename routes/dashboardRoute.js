@@ -15,5 +15,7 @@ router.get("/all-emission",pageController.all_emission)
 router.get("/transparent",pageController.transparent)
 
 router.get("/allowance",pageController.allowance)
+router.get("/buy-token",pageController.buy_token)
+
 
 module.exports = router

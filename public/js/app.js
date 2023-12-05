@@ -309,4 +309,39 @@ App = {
                 console.error('Error:', error);
             });
     },
+
+    detailsToBuy:async()=>{
+        await App.load()
+
+        const tokenPrice = await App.contracts.token.methods.tokenPrice().call()
+        const tokenAllowance = await App.contracts.token.methods.IndustryAllowance(App.account).call()
+        document.querySelector('#tokenAllowance').innerHTML = tokenAllowance.toString() + " Tokens"
+        document.querySelector('#tokenPrice').innerHTML = tokenPrice.toString() + " Wei"
+    },
+
+    buyToken:async()=>{
+        await App.load()
+
+        const tokenPrice = await App.contracts.token.methods.tokenPrice().call()
+        const _to = document.querySelector('#walletID').value
+        const _tokenCount = document.querySelector('#tokenCountForBuy').value
+        const walletID = document.querySelector('#governmentId').value
+        
+        if (walletID.toLowerCase().startsWith('xdc')) {
+            _governmentAddress = '0x' + walletID.slice(3);
+        } else if (walletID.toLowerCase().startsWith('0x')) {
+            _governmentAddress = walletID;
+        } else {
+            alert('Invalid input address');
+        }
+        
+        await App.contracts.token.methods.buyToken(_to,_tokenCount,_governmentAddress).send({from:App.account,value:tokenPrice.toString()*_tokenCount})
+        .on('transactionHash', (hash) => {
+            console.log('Transaction hash:', hash);
+            window.location.href = '/dashboard'
+        })
+        .on('error', (error) => {
+            console.error('Error:', error);
+        });
+    },
 }
