@@ -14,4 +14,6 @@ router.get("/report-co2",pageController.report_co2)
 router.get("/all-emission",pageController.all_emission)
 router.get("/transparent",pageController.transparent)
 
+router.get("/allowance",pageController.allowance)
+
 module.exports = router

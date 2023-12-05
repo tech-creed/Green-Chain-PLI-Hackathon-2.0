@@ -8,7 +8,7 @@ contract GreenCreditToken is ERC20 {
     uint public tokenPrice;
 
     mapping(address => bool) public GovernmentAccounts;
-    mapping(address => bool) public IndustryAccounts;
+    mapping(address => bool) public IndustryAccounts; 
 
     mapping(address => uint) public IndustryAllowance;
 

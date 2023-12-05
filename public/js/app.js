@@ -69,8 +69,8 @@ App = {
 
         // token ABI
         const GreenCreditToken = await $.getJSON('/contracts/GreenCreditToken.json')
-        const greenCreditTokenAddress = '0xd3F9226e25D84B6Ddb6E50b18e82dd05Da055b57'
-        App.contracts.token = new web3.eth.Contract(GreenCreditToken.abi,greenCreditTokenAddress)
+        const greenCreditTokenAddress = '0x2d5703C425E3277cCbfbA4d560c0513a10236A63'
+        App.contracts.token = new web3.eth.Contract(GreenCreditToken.abi, greenCreditTokenAddress)
     },
 
     connectWalletRegister: async () => {
@@ -242,5 +242,22 @@ App = {
         }
 
         tabel_body.innerHTML = html
+    },
+
+    initAllowance: async () => {
+        await App.load()
+        const industryWalletID = document.querySelector('#industryWalletID').value;
+        const initTokens = document.querySelector('#initTokens').value;
+        const maxAllowance = document.querySelector('#maxAllowance').value;
+        await App.contracts.token.methods.initialAllowance(industryWalletID, maxAllowance, initTokens)
+            .send({ from: App.account })
+            .on('transactionHash', (hash) => {
+                console.log('Transaction hash:', hash);
+                window.location.href = '/dashboard'
+            })
+            .on('error', (error) => {
+                console.error('Error:', error);
+            });
+       
     },
 }
