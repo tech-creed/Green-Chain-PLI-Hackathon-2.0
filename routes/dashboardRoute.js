@@ -18,6 +18,7 @@ router.get("/allowance",pageController.allowance)
 router.get("/buy-token",pageController.buy_token)
 
 router.get("/sell-token",pageController.sell_token)
+router.get("/marketplace",pageController.marketplace)
 
 
 module.exports = router
