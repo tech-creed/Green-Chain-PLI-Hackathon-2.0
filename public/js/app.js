@@ -369,4 +369,43 @@ App = {
         });
 
     },
+
+    fetchListedTokensForSell:async()=>{
+        await App.load()
+        var cardBody = document.querySelector('.cardBody')
+        html = ``
+        const listingCount = await App.contracts.token.methods.listingCount().call()
+        for(var i = 0; i < listingCount; i++) {
+            var listData = await App.contracts.token.methods.listings(i).call()
+
+            html += `<div class="col-lg-3 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200" ${!listData[3] ? 'style="display: none;"' : ''}>
+            <div class="box">
+              <img src="img/logo.png" class="img-fluid" alt="">
+              <p style="font-size: 12px;">${listData[0]}</p>
+              <p>Token Price: ${listData[2]}</p>
+              <input type="hidden" id="listingId" value="${i}">
+              <input type="hidden" id="tokenPriceForBuy" value="${listData[2]}">
+              <button class="buy" onClick="App.buyListedToken();">Buy ${listData[1]} ECR</button>
+            </div>
+          </div>`
+
+          cardBody.innerHTML = html
+        }
+    },
+
+    buyListedToken:async()=>{
+        await App.load()
+
+        const listingId = document.querySelector('#listingId').value
+        const tokenPrice = document.querySelector('#tokenPriceForBuy').value
+        await App.contracts.token.methods.buyTokensFromMarketpalce(listingId).send({from:App.account,value:tokenPrice})
+
+        .on('transactionHash', (hash) => {
+            console.log('Transaction hash:', hash);
+            window.location.href = '/dashboard'
+        })
+        .on('error', (error) => {
+            console.error('Error:', error);
+        });
+    }
 }
