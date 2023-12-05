@@ -67,7 +67,10 @@ App = {
         const emissionContractAddress = '0xB2Bb3Dd210A16b4B13B1Da54DF3A1fe1037C03F0'
         App.contracts.emission = new web3.eth.Contract(emissionContract.abi, emissionContractAddress);
 
-
+        // token ABI
+        const GreenCreditToken = await $.getJSON('/contracts/GreenCreditToken.json')
+        const greenCreditTokenAddress = '0xd3F9226e25D84B6Ddb6E50b18e82dd05Da055b57'
+        App.contracts.token = new web3.eth.Contract(GreenCreditToken.abi,greenCreditTokenAddress)
     },
 
     connectWalletRegister: async () => {

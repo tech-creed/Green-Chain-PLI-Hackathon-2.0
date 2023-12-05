@@ -91,8 +91,8 @@ module.exports = {
       network_id: 51,
       gasLimit: 6721975,
       confirmation: 2,
-      timeoutBlocks: 2900,
-      timeoutSeconds: 3900,
+      timeoutBlocks: 3900,
+      timeoutSeconds: 4900,
     }
     //
     // An additional network, but with some advanced options…
