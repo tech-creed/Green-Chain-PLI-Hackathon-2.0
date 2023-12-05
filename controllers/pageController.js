@@ -32,9 +32,12 @@ const allowance = async(req,res)=>{
     res.render('allowance')
 }
 
-
 const buy_token = async (req,res)=>{
     res.render('buyToken')
 }
 
-module.exports = {homePage, dashboard,mark_co2,report_co2,all_emission,transparent,allowance,buy_token}
+const sell_token = async (req,res)=>{
+    res.render('selltoken')
+}
+
+module.exports = {homePage, dashboard,mark_co2,report_co2,all_emission,transparent,allowance,buy_token,sell_token}

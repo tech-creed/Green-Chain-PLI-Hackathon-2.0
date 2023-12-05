@@ -344,4 +344,29 @@ App = {
             console.error('Error:', error);
         });
     },
+
+    detailsToListTokenForSell:async ()=>{
+        await App.load()
+
+        const tokenPrice = await App.contracts.token.methods.tokenPrice().call()
+        const tokenBalance = await App.contracts.token.methods.balanceOf(App.account).call()
+        document.querySelector('#tokenBalance').innerHTML = web3.utils.fromWei(tokenBalance.toString(), 'ether') + " GCT"
+        document.querySelector('#tokenPrice').innerHTML = tokenPrice.toString() + " Wei"
+    },
+
+    listTokenForSell:async()=>{
+        await App.load()
+
+        const tokenCount = document.querySelector('#tokenCount').value
+        const tokenPriceToSell = document.querySelector('#tokenPriceToSell').value
+        await App.contracts.token.methods.listTokensForSale(tokenCount,tokenPriceToSell).send({from:App.account})
+        .on('transactionHash', (hash) => {
+            console.log('Transaction hash:', hash);
+            window.location.href = '/dashboard'
+        })
+        .on('error', (error) => {
+            console.error('Error:', error);
+        });
+
+    },
 }
