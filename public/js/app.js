@@ -134,11 +134,17 @@ App = {
             .send({ from: App.account, value: etherValue })
             .on('transactionHash', (hash) => {
                 console.log('Transaction hash:', hash);
-                window.location.href = '/mark-co2'
             })
             .on('error', (error) => {
                 console.error('Error:', error);
             });
+
+        await App.contracts.token.methods.burnToken(App.account,1).send({from:App.account})
+        .on('transactionHash', (hash) => {
+            console.log('Transaction hash:', hash);
+            window.location.href = '/mark-co2'
+        })
+        
     },
 
     FetchEmission: async () => {
@@ -248,6 +254,20 @@ App = {
         }
 
         tabel_body.innerHTML = html
+    },
+
+    tokenDetails: async ()=>{
+        await App.load()
+        const availableToken = await App.contracts.token.methods.balanceOf(App.account).call()
+        document.querySelector('#tokenAvailable').innerHTML = web3.utils.fromWei(availableToken.toString(), 'ether') + " GCT"
+        document.querySelector('#tokenName').innerHTML = await App.contracts.token.methods.name().call()
+        document.querySelector('#tokenSymbol').innerHTML = await App.contracts.token.methods.symbol().call()
+        const tokenPrice = await App.contracts.token.methods.tokenPrice().call()
+        const tokenAllowance = await App.contracts.token.methods.IndustryAllowance(App.account).call()
+        document.querySelector('#tokenAllowance').innerHTML = tokenAllowance.toString() + " Tokens"
+        document.querySelector('#tokenPrice').innerHTML = tokenPrice.toString() + " Wei"
+        const totalSupply = await App.contracts.token.methods.totalSupply().call()
+        document.querySelector('#tokenSupply').innerHTML = totalSupply.toString() + " Wei"
     },
 
     initAllowance: async () => {
