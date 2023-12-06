@@ -182,6 +182,69 @@ App = {
                 j += 1
             }
         }
+
+        y_new_data_graph = []
+
+        if(y_data.length > 7){
+            const rawResponse = await fetch('http://127.0.0.1:3000/week', {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({data: y_data.slice(y_data.length-7,y_data.length)})
+            });
+
+            var y_new_data_responce = await rawResponse.json();
+            y_new_data_responce = y_new_data_responce['data']['0']
+
+            for (let i = 1; i < y_data.length; i++) {
+                y_new_data_graph.push(null)
+            }
+            y_new_data_graph.push(y_data[y_data.length-1])
+
+            for (let i = 1; i < y_new_data_responce.length+1; i++) {
+                x_data.push(x_data[6].slice(0,8)+(parseInt(x_data[6].slice(8,10))+ parseInt(i)))
+                y_new_data_graph.push(y_new_data_responce[i-1])
+            }
+        }
+        
+
+        var ctxL = document.getElementById("lineChart").getContext('2d');
+        var myLineChart = new Chart(ctxL, {
+            type: 'line',
+            data: {
+                labels: x_data,
+                datasets: [{
+                    lineTension: 0.25,
+                    label: "Industry Carbon Visualization",
+                    data: y_data,
+                    backgroundColor: [
+                        'rgba(225, 0, 0, .2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 0, 0, .7)',
+                    ],
+                    borderWidth: 2
+                },
+                {
+                    lineTension: 0.25,
+                    label: "AI Predicted Carbon Visualization",
+                    data: y_new_data_graph,
+                    backgroundColor: [
+                        'rgba(0, 255, 0, .2)',
+                    ],
+                    borderColor: [
+                        'rgba(0, 255, 0, .7)',
+                    ],
+                    borderWidth: 2
+                }
+                ]
+            },
+            options: {
+                responsive: true
+            }
+        });
         tabel_body.innerHTML = html
     },
 
@@ -252,6 +315,69 @@ App = {
                 j += 1
             }
         }
+
+        y_new_data_graph = []
+
+        if(y_data.length > 7){
+            const rawResponse = await fetch('http://127.0.0.1:3000/week', {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({data: y_data.slice(y_data.length-7,y_data.length)})
+            });
+
+            var y_new_data_responce = await rawResponse.json();
+            y_new_data_responce = y_new_data_responce['data']['0']
+
+            for (let i = 1; i < y_data.length; i++) {
+                y_new_data_graph.push(null)
+            }
+            y_new_data_graph.push(y_data[y_data.length-1])
+
+            for (let i = 1; i < y_new_data_responce.length+1; i++) {
+                x_data.push(x_data[6].slice(0,8)+(parseInt(x_data[6].slice(8,10))+ parseInt(i)))
+                y_new_data_graph.push(y_new_data_responce[i-1])
+            }
+        }
+        
+
+        var ctxL = document.getElementById("lineChart").getContext('2d');
+        var myLineChart = new Chart(ctxL, {
+            type: 'line',
+            data: {
+                labels: x_data,
+                datasets: [{
+                    lineTension: 0.25,
+                    label: "Industry Carbon Visualization",
+                    data: y_data,
+                    backgroundColor: [
+                        'rgba(225, 0, 0, .2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 0, 0, .7)',
+                    ],
+                    borderWidth: 2
+                },
+                {
+                    lineTension: 0.25,
+                    label: "AI Predicted Carbon Visualization",
+                    data: y_new_data_graph,
+                    backgroundColor: [
+                        'rgba(0, 255, 0, .2)',
+                    ],
+                    borderColor: [
+                        'rgba(0, 255, 0, .7)',
+                    ],
+                    borderWidth: 2
+                }
+                ]
+            },
+            options: {
+                responsive: true
+            }
+        });
 
         tabel_body.innerHTML = html
     },

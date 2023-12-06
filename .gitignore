@@ -2,5 +2,6 @@
 /package-lock.json
 /.vscode
 /.env
-
-*pyc
+/ml-backend/__pycache__
+/ml-backend/views/__pycache__/
+/ml-backend/pyenv
