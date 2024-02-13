@@ -38,7 +38,7 @@
         <div class="form">
           <span class="title">Upload Document</span>
 
-          <form  action="/file-upload" method="POST">
+          <form  action="/ipfs/file-upload" method="POST" enctype="multipart/form-data">
             <div class="input-field">
               <input
                 id="walletID"
@@ -50,7 +50,17 @@
               <i class="bi bi-envelope icon"></i>
             </div>
             <div class="input-field">
-              <input id="file" type="file" required />
+                <input
+                  id="walletID"
+                  type="text"
+                  name="docName"
+                  placeholder="Enter your Wallet"
+                  required
+                />
+                <i class="bi bi-envelope icon"></i>
+              </div>
+            <div class="input-field">
+              <input id="file" type="file" name="document" required />
               <i class="bi bi-file-earmark"></i>
             </div>
             <div class="input-field">

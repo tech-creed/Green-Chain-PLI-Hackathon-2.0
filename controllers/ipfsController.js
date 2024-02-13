@@ -1,75 +1,82 @@
-const fs = require('fs')
-const path = require('path')
-require('dotenv').config()
-const { Web3Storage, File } = require('web3.storage')
+const fs = require('fs').promises 
+const path = require('path') 
+const ipfsAPI = require('ipfs-api') 
 
-const web3StorageAPIKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDM3MzViQTQyRjU5MGU1M0M0MzUxZEM1MTA4NTMwNGY0QTQ4ZDZGMDQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2OTQzNDIxODE1MTEsIm5hbWUiOiJTZWN1cmVEb2NzIn0.KKrifAdlRN-3CzNqRIX51lUMcvqQyrrtSuYfWpg2hLo'
+const ipfs = ipfsAPI({ host: 'localhost', port: 5001, protocol: 'http' }) 
 
-function makeStorageClient() {
-    return new Web3Storage({ token: web3StorageAPIKey }) 
-}
-
-async function makeFileObjects(ownerName, docName,validated, description, document, tokenId) {
-    const obj = { ownerName,docName,validated, description, document } 
-    const buffer = Buffer.from(JSON.stringify(obj))
+async function makeFileObjects(ownerName, docName, validated, description, document, tokenId) {
+    const obj = { ownerName, docName, validated, description, document } 
+    const buffer = Buffer.from(JSON.stringify(obj)) 
 
     const files = [
-        new File([buffer], `${tokenId}.json`)
-    ]
-    return files
+        { path: `${tokenId}.json`, content: buffer }
+    ] 
+    return files 
 }
 
 async function storeFiles(files) {
-    const client = makeStorageClient()
-    const cid = await client.put(files)
-    return cid
+    const result = await ipfs.files.add(files, { wrapWithDirectory: true }) 
+    return result[0].hash 
 }
 
 const fileFromPath = async (document, fileName) => {
     const filePath = document.tempFilePath 
-
-    const content = await fs.promises.readFile(filePath)
+    const content = await fs.readFile(filePath) 
     const files = [
-        new File([content], fileName)
-    ]
-    return files
-}
+        { path: fileName, content }
+    ] 
+    return files 
+} 
 
 
-const web3StorageUpload = async (req, res) => {
-    const { ownerName, docName ,validated, description,tokenId } = req.body 
-    console.log(ownerName, docName ,validated, description,tokenId)
+const ipfsUpload = async (req, res) => {
+    const { ownerName, docName, validated, description, tokenId } = req.body 
+    console.log(ownerName, docName, validated, description, tokenId) 
+
     const { document } = req?.files ?? {} 
-    console.log(`Uploading document: [${docName}] to ipfs.`) 
+    console.log(`Uploading document: [${docName}] to local IPFS server.`) 
+
     try {
-        if (!document && !docName && !description && !ownerName&& !validated&& !tokenId|| docName === undefined) {
-            return res.status(200).send({ message: 'invalid input' }) 
+        if (!document || !docName || !description || !ownerName || !validated || !tokenId || docName === undefined) {
+            return res.status(400).send({ message: 'Invalid input' }) 
         }
-        const documentName = `${new Date().getTime()}_${document.name.replaceAll(' ', '')}` 
+
+        const documentName = `${new Date().getTime()}_${document.name.replace(/ /g, '')}` 
         const file = await fileFromPath(document, documentName) 
         const documentCid = await storeFiles(file) 
-        const files = await makeFileObjects(ownerName, docName,validated, description, `https://${documentCid}.ipfs.w3s.link/${documentName}`,tokenId) 
+
+        const files = await makeFileObjects(
+            ownerName,
+            docName,
+            validated,
+            description,
+            `http://localhost:8080/ipfs/${documentCid}`,
+            tokenId
+        ) 
+
         const metaDataCid = await storeFiles(files) 
-        await fs.promises.unlink(document.tempFilePath) 
-        const metadataUrl = `https://${metaDataCid}.ipfs.w3s.link/${tokenId}.json` 
+
+        const metadataUrl = `http://localhost:8080/ipfs/${metaDataCid}` 
 
         const ipfsTierInfo = {
-            ownerName, docName,validated,
+            ownerName,
+            docName,
+            validated,
             description,
             ipfsUrl_NFT_Metadata: metadataUrl
         } 
-        // TODO: store metadata to db
-        res.json(ipfsTierInfo)
+
+        res.json(ipfsTierInfo) 
     } catch (error) {
-        console.log(`Problem while uploading document to ipfs: ${error}`) 
+        console.log(`Problem while uploading document to local IPFS server: ${error}`) 
         return res.status(500).send({
-            message: 'Problem while uploading document to ipfs'
-        })
+            message: 'Problem while uploading document to local IPFS server'
+        }) 
     }
 }
 
-const fileUploadPage = async(req,res)=>{
-    res.render("upload")
-}
+const fileUploadPage = async (req, res) => {
+    res.render('upload') 
+} 
 
-module.exports ={web3StorageUpload,fileUploadPage}
+module.exports = { ipfsUpload, fileUploadPage } 

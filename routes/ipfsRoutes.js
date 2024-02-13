@@ -5,7 +5,7 @@ const ipfsController = require('../controllers/ipfsController')
 
 router.use(fileUpload({useTempFiles: true}));
 
-router.post("/file-upload",ipfsController.web3StorageUpload)
+router.post("/file-upload",ipfsController.ipfsUpload)
 router.get('/file-upload',ipfsController.fileUploadPage)
 
 
