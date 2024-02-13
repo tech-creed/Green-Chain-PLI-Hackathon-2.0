@@ -7,6 +7,10 @@ const registerPage = async(req,res)=>{
 }
 
 const PostRegister = async (req, res) => {
+    Object.keys(req.cookies).forEach(cookieName => {
+        res.clearCookie(cookieName);
+      });
+    
     res.cookie("walletID", req.body.wallet_id);
     res.cookie("role", req.body.role);
     res.cookie("name", req.body.name);
@@ -14,6 +18,10 @@ const PostRegister = async (req, res) => {
 }
 
 const PostLogin = async (req, res) => {
+    Object.keys(req.cookies).forEach(cookieName => {
+        res.clearCookie(cookieName);
+      });
+    
     res.cookie("walletID", req.body.wallet_id);
     res.cookie("role", req.body.role);
     res.cookie("name", req.body.name);

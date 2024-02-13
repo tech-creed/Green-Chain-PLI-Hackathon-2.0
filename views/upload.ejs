@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>KYC Verification</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800"
+      rel="stylesheet"
+    />
+    <!-- Vendor CSS Files -->
+    <link href="vendor/aos/aos.css" rel="stylesheet" />
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link href="vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+  </head>
+
+  <body>
+    <div data-aos="fade" data-stellar-background-ratio="0.5">
+      <div
+        data-aos="fade-up"
+        data-aos-delay="200"
+        class="container1"
+        style="max-width: 540px"
+      >
+        <div class="form">
+          <span class="title">Upload Document</span>
+
+          <form  action="/file-upload" method="POST">
+            <div class="input-field">
+              <input
+                id="walletID"
+                type="text"
+                name="ownerName"
+                placeholder="Enter your Wallet"
+                required
+              />
+              <i class="bi bi-envelope icon"></i>
+            </div>
+            <div class="input-field">
+              <input id="file" type="file" required />
+              <i class="bi bi-file-earmark"></i>
+            </div>
+            <div class="input-field">
+              <input
+                id="validated"
+                type="text"
+                name="validated"
+                placeholder="Enter Name of the Owner"
+                required
+              />
+              <i class="bi bi-check"></i>
+            </div>
+            <div class="input-field">
+              <input
+                id="description"
+                type="text"
+                name="description"
+                placeholder="Enter Name of the Document"
+                required
+              />
+              <i class="bi bi-list"></i>
+            </div>
+            <div class="input-field">
+              <input
+                id="tokenId"
+                type="text"
+                name="tokenId"
+                placeholder="Enter Your Address"
+                required
+              />
+              <i class="bi bi-arrow-right"></i>
+            </div>
+            <div class="input-field button">
+              <input type="submit" value="Sumbit for KYC" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-23581568-13");
+    </script>
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
+      integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
+      data-cf-beacon='{"rayId":"803deeb80a653bbc","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.8.0","si":100}'
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
