@@ -1,74 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>KYC Verification</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800"
-      rel="stylesheet"
-    />
-    <!-- Vendor CSS Files -->
-    <link href="vendor/aos/aos.css" rel="stylesheet" />
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-    <link href="vendor/remixicon/remixicon.css" rel="stylesheet" />
-    <link href="vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
 
-    <!-- Template Main CSS File -->
-    <link href="css/style.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    />
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <body>
-    <div data-aos="fade" data-stellar-background-ratio="0.5">
-      <div
-        data-aos="fade-up"
-        data-aos-delay="200"
-        class="container1"
-        style="max-width: 540px"
-      >
-        <div class="form">
-          <span class="title">Upload Document</span>
+  <title>GreenChain | KYC</title>
 
-          <form  action="/ipfs/file-upload" method="POST" enctype="multipart/form-data">
+  <!-- Favicons -->
+  <link href="/img/favicon.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/style.css" rel="stylesheet">
+  <!-- ===== CSS ===== -->
+  <link rel="stylesheet" href="/css/login_register.css">
+
+<body>
+
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="/dashboard" class="logo d-flex align-items-center">
+        <img src="/img/logo.png" alt="">
+        <span>GreenChain</span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="getstarted scrollto" href="/auth/logout">Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <section id="hero" class="hero d-flex align-items-center" style="justify-content: center;">
+
+    <div data-aos="fade-up" data-aos-delay="200" class="container" style="top: 50px;max-width: 540px;">
+      <div class="form">
+        <span class="title">KYC Verrification</span>
+
+        <form
+            action="/ipfs/file-upload"
+            method="POST"
+            enctype="multipart/form-data"
+          >
             <div class="input-field">
               <input
-                id="walletID"
+                id="ownerName"
                 type="text"
                 name="ownerName"
-                placeholder="Enter your Wallet"
+                placeholder="Enter Owner Name"
                 required
+              />
+              <i class="bi bi-person icon"></i>
+            </div>
+            <div class="input-field" style="display: none!important;">
+              <input
+                id="docName"
+                type="text"
+                name="docName"
+                required
+                value="KYC_VERIFICATION_DOCUMENT"
               />
               <i class="bi bi-envelope icon"></i>
             </div>
             <div class="input-field">
-                <input
-                  id="walletID"
-                  type="text"
-                  name="docName"
-                  placeholder="Enter your Wallet"
-                  required
-                />
-                <i class="bi bi-envelope icon"></i>
-              </div>
-            <div class="input-field">
               <input id="file" type="file" name="document" required />
               <i class="bi bi-file-earmark"></i>
             </div>
-            <div class="input-field">
+            <div class="input-field" style="display: none!important;">
               <input
                 id="validated"
                 type="text"
                 name="validated"
-                placeholder="Enter Name of the Owner"
+                value="false"
                 required
               />
               <i class="bi bi-check"></i>
@@ -78,7 +99,7 @@
                 id="description"
                 type="text"
                 name="description"
-                placeholder="Enter Name of the Document"
+                placeholder="Enter Detail Description"
                 required
               />
               <i class="bi bi-list"></i>
@@ -88,8 +109,9 @@
                 id="tokenId"
                 type="text"
                 name="tokenId"
-                placeholder="Enter Your Address"
+                placeholder="Enter Address"
                 required
+                readonly
               />
               <i class="bi bi-arrow-right"></i>
             </div>
@@ -97,29 +119,37 @@
               <input type="submit" value="Sumbit for KYC" />
             </div>
           </form>
-        </div>
+
       </div>
     </div>
 
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+  </section>
 
-      gtag("config", "UA-23581568-13");
-    </script>
-    <script
-      defer
-      src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
-      integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
-      data-cf-beacon='{"rayId":"803deeb80a653bbc","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.8.0","si":100}'
-      crossorigin="anonymous"
-    ></script>
-  </body>
+  <!-- Vendor JS Files -->
+  <script src="/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/vendor/aos/aos.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/truffle-contract@4.0.31/dist/truffle-contract.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.0-rc.0/web3.min.js"></script>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    cookies = document.cookie.split(';')
+    if (decodeURIComponent(cookies[1].split('=')[1]) == 'individual') {
+      document.getElementById('reportLink').innerHTML = 'Your Emission Report'
+      document.getElementById('buyToken').style.display = 'none'
+        document.getElementById('sellToken').style.display = 'none'
+        document.getElementById('marketplace').style.display = 'none'
+    }
+    document.getElementById('tokenId').value = decodeURIComponent(cookies[0].split('=')[1]).slice(2,11)
+  </script>
+</body>
+
 </html>

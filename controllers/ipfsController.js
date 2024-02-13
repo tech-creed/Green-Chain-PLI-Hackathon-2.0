@@ -2,7 +2,7 @@ const fs = require('fs').promises
 const path = require('path') 
 const ipfsAPI = require('ipfs-api') 
 
-const ipfs = ipfsAPI({ host: 'localhost', port: 5001, protocol: 'http' }) 
+const ipfs = ipfsAPI({ host: '127.0.0.1', port: 5001, protocol: 'http' }) 
 
 async function makeFileObjects(ownerName, docName, validated, description, document, tokenId) {
     const obj = { ownerName, docName, validated, description, document } 
@@ -50,13 +50,13 @@ const ipfsUpload = async (req, res) => {
             docName,
             validated,
             description,
-            `http://localhost:8080/ipfs/${documentCid}`,
+            `http://localhost:8081/ipfs/${documentCid}`,
             tokenId
         ) 
 
         const metaDataCid = await storeFiles(files) 
 
-        const metadataUrl = `http://localhost:8080/ipfs/${metaDataCid}` 
+        const metadataUrl = `http://localhost:8081/ipfs/${metaDataCid}` 
 
         const ipfsTierInfo = {
             ownerName,
