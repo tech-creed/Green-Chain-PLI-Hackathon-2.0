@@ -74,7 +74,16 @@
               <h1 data-aos="fade-up" data-aos-delay="500" id="name"></h1>
             </div>
           </div>
+
           <div style="display: flex;justify-content: space-between;margin-bottom: 64px;margin-top: 24px;">
+            <div class="col-md-6">
+              <h1 data-aos="fade-up" data-aos-delay="400" id="quiz-title"><u></u></h1>
+            </div>
+            <div class="col-md-6">
+              <h1 data-aos="fade-up" data-aos-delay="400" id="quiz-link"></h1>
+            </div>
+          </div>
+          <div id="kycSection" style="display: flex;justify-content: space-between;margin-bottom: 64px;margin-top: 24px;">
            
             <div class="col-md-6">
               <h1 data-aos="fade-up" data-aos-delay="600"><u>KYC Status</u></h1>
@@ -164,6 +173,7 @@
       document.getElementById('industryAllowance').style.display = 'none'
       document.getElementById('sellToken').style.display = 'none'
       document.getElementById('marketplace').style.display = 'none'
+      document.getElementById('kycSection').style.display = 'none'
     } else if (document.getElementById('role').innerHTML == 'individual') {
       document.getElementById('reportLink').innerHTML = 'Your Emission Report'
 
@@ -173,6 +183,7 @@
       document.getElementById('tokenAvailable').style.display = 'none'
       document.getElementById('tokenPrice').style.display = 'none'
       document.getElementById('tokenSupply').style.display = 'none'
+      document.getElementById('kycSection').style.display = 'none'
 
       document.getElementById('tokenNameTitle').style.display = 'none'
       document.getElementById('tokenSymbolTitle').style.display = 'none'
@@ -182,6 +193,9 @@
       document.getElementById('buyToken').style.display = 'none'
       document.getElementById('sellToken').style.display = 'none'
       document.getElementById('marketplace').style.display = 'none'
+
+      document.getElementById('quiz-title').innerHTML = 'Quiz for Rewards, Go Green!'
+      document.getElementById('quiz-link').innerHTML = '<a href="/quiz-reward" target="_blank">Attend Your Quiz...</a>'
     }
   </script>
 </body>

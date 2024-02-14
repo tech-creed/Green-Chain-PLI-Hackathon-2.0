@@ -44,4 +44,8 @@ const marketplace = async(req,res)=>{
     res.render('marketplace')
 }
 
-module.exports = {homePage, dashboard,mark_co2,report_co2,all_emission,transparent,allowance,buy_token,sell_token,marketplace}
+const quiz_reward = async(req,res)=>{
+    res.render('quiz')
+}
+
+module.exports = {homePage, dashboard,mark_co2,report_co2,all_emission,transparent,allowance,buy_token,sell_token,marketplace,quiz_reward}

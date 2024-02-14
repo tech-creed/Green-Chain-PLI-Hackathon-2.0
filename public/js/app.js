@@ -137,9 +137,6 @@ App = {
 
     KYCStatus: async () => {
         await App.load()
-
-        
-
         const kycInfo = await App.contracts.kyc.methods.certificates(App.account).call()
 
         const getStatusText = (status) => {

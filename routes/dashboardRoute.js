@@ -20,5 +20,7 @@ router.get("/buy-token",pageController.buy_token)
 router.get("/sell-token",pageController.sell_token)
 router.get("/marketplace",pageController.marketplace)
 
+router.get("/quiz-reward",pageController.quiz_reward)
+
 
 module.exports = router
