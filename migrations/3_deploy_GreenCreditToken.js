@@ -1,5 +1,5 @@
 const GreenCreditToken = artifacts.require("GreenCreditToken");
 
 module.exports = function(deployer) {
-  deployer.deploy(GreenCreditToken,2000000000000000)
+  deployer.deploy(GreenCreditToken,200000000000, { gas: 6000000 })
 }

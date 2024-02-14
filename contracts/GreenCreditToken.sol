@@ -9,6 +9,7 @@ contract GreenCreditToken is ERC20 {
 
     mapping(address => bool) public GovernmentAccounts;
     mapping(address => bool) public IndustryAccounts; 
+    mapping(address => bool) public IndividualAccounts;
 
     mapping(address => uint) public IndustryAllowance;
 
@@ -65,6 +66,26 @@ contract GreenCreditToken is ERC20 {
         require(_tokenCount > 0, "token Count must be greater than 0");
         IndustryAllowance[_industry] = _maxAllowance;
         _transfer(msg.sender, _industry, _tokenCount * 10**decimals());
+    }
+
+    // Reward distribution to the public
+    function registerIndividual() public {
+        require(!IndividualAccounts[msg.sender], "Already registered as an individual");
+        IndividualAccounts[msg.sender] = true;
+    }
+
+    modifier onlyIndividual() {
+        require(
+            IndividualAccounts[msg.sender],
+            "Only registered individual users can call this function"
+        );
+        _;
+    }
+
+    function collectReward(uint rewardAmount) public onlyIndividual {
+        require(rewardAmount > 0, "Reward amount must be greater than 0");
+
+        _mint(msg.sender, rewardAmount * 10**decimals());
     }
 
     //Industry functionalities

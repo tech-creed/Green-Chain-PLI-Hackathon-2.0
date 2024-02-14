@@ -578,6 +578,12 @@ App = {
       });
   },
 
+  getReward:async () => {
+    await App.load();
+    
+  },
+
+
   detailsToBuy: async () => {
     await App.load();
 

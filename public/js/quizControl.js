@@ -56,7 +56,20 @@ function endQuiz() {
 function distributeTokens(score) {
     const tokensEarned = score;
     tokenContainer.innerHTML = `<p>Tokens Earned: ${tokensEarned}</p>`;
-    closeContainer.innerHTML = '<a href="/dashboard" target="_blank">Close and Goback</a>'
+}
+
+function distributeTokens(score) {
+    if (score >= 5) {
+        const tokensEarned = 1;
+        tokenContainer.innerHTML = `<p>Tokens Earned: ${tokensEarned}</p>`;
+        closeContainer.innerHTML = `
+        <div class="input-field button">
+            <input onClick="App.getReward(); return false;" type="submit" value="Get your Reward">
+        </div>`
+    } else {
+        tokenContainer.innerHTML = `<p>Sorry, no tokens earned this time. Try again for more tokens!</p>`;
+        closeContainer.innerHTML = '<a href="/dashboard" target="_blank">Close and Goback</a>'
+    }
 }
 
 function clearContainers() {
