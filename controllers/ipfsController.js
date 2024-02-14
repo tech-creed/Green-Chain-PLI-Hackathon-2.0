@@ -63,7 +63,8 @@ const ipfsUpload = async (req, res) => {
             docName,
             validated,
             description,
-            ipfsUrl_NFT_Metadata: metadataUrl
+            ipfsUrl_Metadata: metadataUrl,
+            ipfsUrl_Document: `http://localhost:8081/ipfs/${documentCid}`
         } 
 
         res.json(ipfsTierInfo) 

@@ -71,6 +71,11 @@ App = {
         const GreenCreditToken = await $.getJSON('/contracts/GreenCreditToken.json')
         const greenCreditTokenAddress = '0x2d5703C425E3277cCbfbA4d560c0513a10236A63'
         App.contracts.token = new web3.eth.Contract(GreenCreditToken.abi, greenCreditTokenAddress)
+
+        // KYC ABI
+        // const KYCContract = await $.getJSON('/contracts/KYC.json')
+        // const KYCContractAddress = ''
+        // App.contracts.kyc = new web3.eth.Contract(KYCContract.abi, KYCContractAddress)
     },
 
     connectWalletRegister: async () => {
@@ -94,6 +99,32 @@ App = {
         if (r) {
             alert(data['name'] + ' Welcome to the GreenChain EcoSystem')
             window.location.href = `/dashboard`
+        }
+    },
+
+    KYCVerification: async () => {
+        await App.load()
+        data = {}
+
+        const form = document.getElementById('kycForm');
+
+        const formData = new FormData(form);
+        try {
+            const response = await fetch('/ipfs/file-upload', {
+                method: 'POST',
+                body: formData,
+            })
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log('Response:', responseData);
+
+
+            } else {
+                console.error('Failed to submit form');
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
     },
 
@@ -139,12 +170,12 @@ App = {
                 console.error('Error:', error);
             });
 
-        await App.contracts.token.methods.burnToken(App.account,1).send({from:App.account})
-        .on('transactionHash', (hash) => {
-            console.log('Transaction hash:', hash);
-            window.location.href = '/mark-co2'
-        })
-        
+        await App.contracts.token.methods.burnToken(App.account, 1).send({ from: App.account })
+            .on('transactionHash', (hash) => {
+                console.log('Transaction hash:', hash);
+                window.location.href = '/mark-co2'
+            })
+
     },
 
     FetchEmission: async () => {
@@ -185,14 +216,14 @@ App = {
 
         y_new_data_graph = []
 
-        if(y_data.length > 7){
+        if (y_data.length > 7) {
             const rawResponse = await fetch('http://127.0.0.1:3000/week', {
                 method: 'POST',
                 headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({data: y_data.slice(y_data.length-7,y_data.length)})
+                body: JSON.stringify({ data: y_data.slice(y_data.length - 7, y_data.length) })
             });
 
             var y_new_data_responce = await rawResponse.json();
@@ -201,14 +232,14 @@ App = {
             for (let i = 1; i < y_data.length; i++) {
                 y_new_data_graph.push(null)
             }
-            y_new_data_graph.push(y_data[y_data.length-1])
+            y_new_data_graph.push(y_data[y_data.length - 1])
 
-            for (let i = 1; i < y_new_data_responce.length+1; i++) {
-                x_data.push(x_data[6].slice(0,8)+(parseInt(x_data[6].slice(8,10))+ parseInt(i)))
-                y_new_data_graph.push(y_new_data_responce[i-1])
+            for (let i = 1; i < y_new_data_responce.length + 1; i++) {
+                x_data.push(x_data[6].slice(0, 8) + (parseInt(x_data[6].slice(8, 10)) + parseInt(i)))
+                y_new_data_graph.push(y_new_data_responce[i - 1])
             }
         }
-        
+
 
         var ctxL = document.getElementById("lineChart").getContext('2d');
         var myLineChart = new Chart(ctxL, {
@@ -318,14 +349,14 @@ App = {
 
         y_new_data_graph = []
 
-        if(y_data.length > 7){
+        if (y_data.length > 7) {
             const rawResponse = await fetch('http://127.0.0.1:3000/week', {
                 method: 'POST',
                 headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({data: y_data.slice(y_data.length-7,y_data.length)})
+                body: JSON.stringify({ data: y_data.slice(y_data.length - 7, y_data.length) })
             });
 
             var y_new_data_responce = await rawResponse.json();
@@ -334,14 +365,14 @@ App = {
             for (let i = 1; i < y_data.length; i++) {
                 y_new_data_graph.push(null)
             }
-            y_new_data_graph.push(y_data[y_data.length-1])
+            y_new_data_graph.push(y_data[y_data.length - 1])
 
-            for (let i = 1; i < y_new_data_responce.length+1; i++) {
-                x_data.push(x_data[6].slice(0,8)+(parseInt(x_data[6].slice(8,10))+ parseInt(i)))
-                y_new_data_graph.push(y_new_data_responce[i-1])
+            for (let i = 1; i < y_new_data_responce.length + 1; i++) {
+                x_data.push(x_data[6].slice(0, 8) + (parseInt(x_data[6].slice(8, 10)) + parseInt(i)))
+                y_new_data_graph.push(y_new_data_responce[i - 1])
             }
         }
-        
+
 
         var ctxL = document.getElementById("lineChart").getContext('2d');
         var myLineChart = new Chart(ctxL, {
@@ -382,7 +413,7 @@ App = {
         tabel_body.innerHTML = html
     },
 
-    tokenDetails: async ()=>{
+    tokenDetails: async () => {
         await App.load()
         const availableToken = await App.contracts.token.methods.balanceOf(App.account).call()
         document.querySelector('#tokenAvailable').innerHTML = web3.utils.fromWei(availableToken.toString(), 'ether') + " GCT"
@@ -436,7 +467,7 @@ App = {
             });
     },
 
-    detailsToBuy:async()=>{
+    detailsToBuy: async () => {
         await App.load()
 
         const tokenPrice = await App.contracts.token.methods.tokenPrice().call()
@@ -445,14 +476,14 @@ App = {
         document.querySelector('#tokenPrice').innerHTML = tokenPrice.toString() + " Wei"
     },
 
-    buyToken:async()=>{
+    buyToken: async () => {
         await App.load()
 
         const tokenPrice = await App.contracts.token.methods.tokenPrice().call()
         const _to = document.querySelector('#walletID').value
         const _tokenCount = document.querySelector('#tokenCountForBuy').value
         const walletID = document.querySelector('#governmentId').value
-        
+
         if (walletID.toLowerCase().startsWith('xdc')) {
             _governmentAddress = '0x' + walletID.slice(3);
         } else if (walletID.toLowerCase().startsWith('0x')) {
@@ -460,18 +491,18 @@ App = {
         } else {
             alert('Invalid input address');
         }
-        
-        await App.contracts.token.methods.buyToken(_to,_tokenCount,_governmentAddress).send({from:App.account,value:tokenPrice.toString()*_tokenCount})
-        .on('transactionHash', (hash) => {
-            console.log('Transaction hash:', hash);
-            window.location.href = '/dashboard'
-        })
-        .on('error', (error) => {
-            console.error('Error:', error);
-        });
+
+        await App.contracts.token.methods.buyToken(_to, _tokenCount, _governmentAddress).send({ from: App.account, value: tokenPrice.toString() * _tokenCount })
+            .on('transactionHash', (hash) => {
+                console.log('Transaction hash:', hash);
+                window.location.href = '/dashboard'
+            })
+            .on('error', (error) => {
+                console.error('Error:', error);
+            });
     },
 
-    detailsToListTokenForSell:async ()=>{
+    detailsToListTokenForSell: async () => {
         await App.load()
 
         const tokenPrice = await App.contracts.token.methods.tokenPrice().call()
@@ -480,28 +511,28 @@ App = {
         document.querySelector('#tokenPrice').innerHTML = tokenPrice.toString() + " Wei"
     },
 
-    listTokenForSell:async()=>{
+    listTokenForSell: async () => {
         await App.load()
 
         const tokenCount = document.querySelector('#tokenCount').value
         const tokenPriceToSell = document.querySelector('#tokenPriceToSell').value
-        await App.contracts.token.methods.listTokensForSale(tokenCount,tokenPriceToSell).send({from:App.account})
-        .on('transactionHash', (hash) => {
-            console.log('Transaction hash:', hash);
-            window.location.href = '/dashboard'
-        })
-        .on('error', (error) => {
-            console.error('Error:', error);
-        });
+        await App.contracts.token.methods.listTokensForSale(tokenCount, tokenPriceToSell).send({ from: App.account })
+            .on('transactionHash', (hash) => {
+                console.log('Transaction hash:', hash);
+                window.location.href = '/dashboard'
+            })
+            .on('error', (error) => {
+                console.error('Error:', error);
+            });
 
     },
 
-    fetchListedTokensForSell:async()=>{
+    fetchListedTokensForSell: async () => {
         await App.load()
         var cardBody = document.querySelector('.cardBody')
         html = ``
         const listingCount = await App.contracts.token.methods.listingCount().call()
-        for(var i = 0; i < listingCount; i++) {
+        for (var i = 0; i < listingCount; i++) {
             var listData = await App.contracts.token.methods.listings(i).call()
 
             html += `<div class="col-lg-3 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200" ${!listData[3] ? 'style="display: none;"' : ''}>
@@ -515,23 +546,23 @@ App = {
             </div>
           </div>`
 
-          cardBody.innerHTML = html
+            cardBody.innerHTML = html
         }
     },
 
-    buyListedToken:async()=>{
+    buyListedToken: async () => {
         await App.load()
 
         const listingId = document.querySelector('#listingId').value
         const tokenPrice = document.querySelector('#tokenPriceForBuy').value
-        await App.contracts.token.methods.buyTokensFromMarketpalce(listingId).send({from:App.account,value:tokenPrice})
+        await App.contracts.token.methods.buyTokensFromMarketpalce(listingId).send({ from: App.account, value: tokenPrice })
 
-        .on('transactionHash', (hash) => {
-            console.log('Transaction hash:', hash);
-            window.location.href = '/dashboard'
-        })
-        .on('error', (error) => {
-            console.error('Error:', error);
-        });
+            .on('transactionHash', (hash) => {
+                console.log('Transaction hash:', hash);
+                window.location.href = '/dashboard'
+            })
+            .on('error', (error) => {
+                console.error('Error:', error);
+            });
     }
 }

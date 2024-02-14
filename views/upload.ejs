@@ -53,11 +53,9 @@
 
     <div data-aos="fade-up" data-aos-delay="200" class="container" style="top: 50px;max-width: 540px;">
       <div class="form">
-        <span class="title">KYC Verrification</span>
+        <span class="title">KYC Verification</span>
 
-        <form
-            action="/ipfs/file-upload"
-            method="POST"
+        <form id="kycForm"
             enctype="multipart/form-data"
           >
             <div class="input-field">
@@ -140,6 +138,15 @@
 
   <script src="/js/main.js"></script>
   <script src="/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('kycForm');
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            App.KYCVerification();
+        });
+    });
+</script>
   <script>
     cookies = document.cookie.split(';')
     if (decodeURIComponent(cookies[1].split('=')[1]) == 'individual') {
