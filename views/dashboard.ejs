@@ -179,16 +179,13 @@
       document.getElementById('reportLink').innerHTML = 'Your Emission Report'
       document.getElementById('kyc').style.display = 'none'
       document.getElementById('industryAllowance').style.display = 'none'
-      document.getElementById('tokenName').style.display = 'none'
-      document.getElementById('tokenSymbol').style.display = 'none'
-      document.getElementById('tokenAvailable').style.display = 'none'
+
+      document.querySelector("#tokenAvailable").innerHTML = parseInt(localStorage.getItem('userTokens')) + 'GCT'
+      
       document.getElementById('tokenPrice').style.display = 'none'
       document.getElementById('tokenSupply').style.display = 'none'
       document.getElementById('kycSection').style.display = 'none'
 
-      document.getElementById('tokenNameTitle').style.display = 'none'
-      document.getElementById('tokenSymbolTitle').style.display = 'none'
-      document.getElementById('tokenTitle').style.display = 'none'
       document.getElementById('tokenStatusTitle').style.display = 'none'
 
       document.getElementById('buyToken').style.display = 'none'

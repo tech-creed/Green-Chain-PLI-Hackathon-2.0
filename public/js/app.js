@@ -521,15 +521,38 @@ App = {
 
   tokenDetails: async () => {
     await App.load();
+    function getCookieValue(cookieName) {
+        const cookies = document.cookie.split('; ');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].split('=');
+            if (cookie[0] === cookieName) {
+                return cookie[1];
+            }
+        }
+        return null;
+    }
+
     const availableToken = await App.contracts.token.methods
       .balanceOf(App.account)
       .call();
-    document.querySelector("#tokenAvailable").innerHTML =
-      web3.utils.fromWei(availableToken.toString(), "ether") + " GCT";
-    document.querySelector("#tokenName").innerHTML =
-      await App.contracts.token.methods.name().call();
-    document.querySelector("#tokenSymbol").innerHTML =
-      await App.contracts.token.methods.symbol().call();
+
+      const userRole = getCookieValue('role');
+      if(userRole == 'individual'){
+        document.querySelector("#tokenAvailable").innerHTML =
+        parseInt(localStorage.getItem('userTokens')) + " GCT";
+      document.querySelector("#tokenName").innerHTML =
+        await App.contracts.token.methods.name().call();
+      document.querySelector("#tokenSymbol").innerHTML =
+        await App.contracts.token.methods.symbol().call();
+      }else{
+        document.querySelector("#tokenAvailable").innerHTML =
+        web3.utils.fromWei(availableToken.toString(), "ether") + " GCT";
+      document.querySelector("#tokenName").innerHTML =
+        await App.contracts.token.methods.name().call();
+      document.querySelector("#tokenSymbol").innerHTML =
+        await App.contracts.token.methods.symbol().call();
+      }
+    
     const tokenPrice = await App.contracts.token.methods.tokenPrice().call();
     const tokenAllowance = await App.contracts.token.methods
       .IndustryAllowance(App.account)

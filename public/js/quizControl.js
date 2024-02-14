@@ -61,10 +61,13 @@ function distributeTokens(score) {
 function distributeTokens(score) {
     if (score >= 5) {
         const tokensEarned = 1;
+        const currentTokens = parseInt(localStorage.getItem('userTokens')) || 0;
+        localStorage.setItem('userTokens', currentTokens + tokensEarned);
+
         tokenContainer.innerHTML = `<p>Tokens Earned: ${tokensEarned}</p>`;
         closeContainer.innerHTML = `
         <div class="input-field button">
-            <input onClick="App.getReward(); return false;" type="submit" value="Get your Reward">
+        <a href="/dashboard" target="_blank">Get your Reward</a>
         </div>`
     } else {
         tokenContainer.innerHTML = `<p>Sorry, no tokens earned this time. Try again for more tokens!</p>`;
