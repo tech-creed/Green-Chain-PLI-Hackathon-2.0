@@ -97,14 +97,18 @@ App = {
         let r = await fetch('/auth/register', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-type': 'application/json;charset=UTF-8' } })
         r = await r.json()
         if (r) {
-            alert(data['name'] + ' Welcome to the GreenChain EcoSystem')
-            window.location.href = `/dashboard`
+            console.log('Data role:', data['role'])
+            if (data['role'] == "industry") {
+                window.location.href = `/ipfs/kyc-file-upload`
+            } else{
+                alert(data['name'] + ' Welcome to the GreenChain EcoSystem')
+                window.location.href = `/dashboard`
+            }
         }
     },
 
     KYCVerification: async () => {
         await App.load()
-        data = {}
 
         const form = document.getElementById('kycForm');
 
@@ -119,13 +123,44 @@ App = {
                 const responseData = await response.json();
                 console.log('Response:', responseData);
 
-
+                await App.contracts.kyc.methods.submitCertificate(responseData.ipfsUrl_Document).send({ from: App.account });
+                
+                alert('Welcome to the GreenChain EcoSystem')
+                window.location.href = `/dashboard`
             } else {
                 console.error('Failed to submit form');
             }
         } catch (error) {
             console.error('Error:', error);
         }
+    },
+
+    KYCStatus: async () => {
+        await App.load()
+
+        
+
+        const kycInfo = await App.contracts.kyc.methods.certificates(App.account).call()
+
+        const getStatusText = (status) => {
+            switch (status) {
+                case '0':
+                    return 'Pending';
+                case '1':
+                    return 'Approved';
+                case '2':
+                    return 'Rejected';
+                default:
+                    return 'Unknown';
+            }
+        }
+
+        const kycStatus = getStatusText(kycInfo.status);
+
+        document.getElementById('kycStatus').innerText = `${kycStatus}`
+
+        const docLinkElement = document.getElementById('docLink')
+        docLinkElement.innerHTML = `<a href="${kycInfo.ipfsUrl}" target="_blank">View Document</a>`
     },
 
     connectWalletLogin: async () => {
