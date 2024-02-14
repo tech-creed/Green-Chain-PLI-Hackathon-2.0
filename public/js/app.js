@@ -266,21 +266,27 @@ App = {
       .certificateCount()
       .call();
 
-      console.log(certificateCount)
     tabel_body = document.getElementById("tabel-body");
+    console.log(certificateCount)
+    wal = await App.contracts.kyc.methods.industries(0).call()
+    console.log(wal);
 
-    j = 1;
-    for (var i = 1; i <= certificateCount; i++) {
-      var certificate = await App.contracts.kyc.methods
-        .certificates(i)
-        .call();
-    console.log(certificate)
+    html = ''
+    for (var j = 0; j <= certificateCount; j++) {
+    
+      var industryWallet = await App.contracts.kyc.methods.industries(j).call()
+      console.log(industryWallet)
+
+      var certificate = await App.contracts.kyc.methods.certificates(industryWallet).call();
+
+      console.log(certificate);
       html += `<tr>
-          <th scope="row">${j}</th>
+          <th scope="row">${j+1}</th>
           <td>${certificate[2]}</td>
           <td>${certificate[3]}</td>
-          <td>${certificate[0]}</td>
+          <td><a href="${certificate[0]}">View Document</a></td>
           <td>${certificate[1]}</td>
+          <td style="color:green;"><button class='btn'>Approve the KYC</button> </td>
           </tr>`;
       j += 1;
     }
