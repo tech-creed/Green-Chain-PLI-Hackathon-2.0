@@ -5,7 +5,7 @@ Blockchain-Driven Carbon Management integrates blockchain for transparency, auto
 ### Deployed Contracts (XDC testnet Apothem),
 - User Contract : https://explorer.apothem.network/address/0x73a1637b532c203fD2Cb2f30DaC2A5C920D08E36
 - Carbon Contract : https://explorer.apothem.network/address/0xB2Bb3Dd210A16b4B13B1Da54DF3A1fe1037C03F0
-- GCT Token Contract : https://explorer.apothem.network/address/0x2d5703C425E3277cCbfbA4d560c0513a10236A63
+- GCT Token Contract : https://explorer.apothem.network/tokens/xdc2d5703c425e3277ccbfba4d560c0513a10236a63
 - KYC Contract : https://explorer.apothem.network/address/0x79400Fc35C4723dfbB24d7B42c8B32095d86Ec95
   
 # Problem Identified
