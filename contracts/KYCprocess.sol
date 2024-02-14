@@ -18,6 +18,7 @@ contract KYC {
     }
 
     mapping(address => Certificate) public certificates;
+    address[] public industries;
 
     event CertificateSubmitted(address indexed industry, string ipfsUrl);
 
@@ -50,6 +51,7 @@ contract KYC {
     });
 
     certificateCount++;
+    industries.push(msg.sender);
 
     emit CertificateSubmitted(msg.sender, ipfsUrl);
 }

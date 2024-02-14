@@ -93,7 +93,7 @@ App = {
 
     // KYC ABI
     const KYCContract = await $.getJSON("/contracts/KYC.json");
-    const KYCContractAddress = "0xe0168EB7b8c00417B216f1Ef73B339AfD6824B50";
+    const KYCContractAddress = "0xBAAb0677fb462FA43CAD97b9764535b9b9aFAbF1";
     App.contracts.kyc = new web3.eth.Contract(
       KYCContract.abi,
       KYCContractAddress
