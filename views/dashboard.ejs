@@ -42,6 +42,7 @@
 
       <nav id="navbar" class="navbar">
         <ul>
+          <li><a class="nav-link scrollto" id="kyc" href="/kyc-verification">KYC Verification</a></li>
           <li><a class="nav-link scrollto" id="marketplace" href="/marketplace">Marketplace</a></li>
           <li><a class="nav-link scrollto" id="sellToken" href="/sell-token">Sell Token</a></li>
           <li><a class="nav-link scrollto" id="buyToken" href="/buy-token">Buy Token</a></li>
@@ -196,6 +197,9 @@
 
       document.getElementById('quiz-title').innerHTML = 'Quiz for Rewards, Go Green!'
       document.getElementById('quiz-link').innerHTML = '<a href="/quiz-reward" target="_blank">Attend Your Quiz...</a>'
+    }else{
+      document.getElementById('kyc').style.display = 'none'
+
     }
   </script>
 </body>

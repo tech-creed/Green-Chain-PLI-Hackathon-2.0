@@ -21,6 +21,7 @@ router.get("/sell-token",pageController.sell_token)
 router.get("/marketplace",pageController.marketplace)
 
 router.get("/quiz-reward",pageController.quiz_reward)
+router.get("/kyc-verification", pageController.KYC)
 
 
 module.exports = router
