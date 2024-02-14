@@ -279,19 +279,60 @@ App = {
 
       var certificate = await App.contracts.kyc.methods.certificates(industryWallet).call();
 
+      const getStatusText = (status) => {
+        switch (status) {
+          case "0":
+            return "Pending";
+          case "1":
+            return "Approved";
+          case "2":
+            return "Rejected";
+          default:
+            return "Unknown";
+        }
+      };
+  
+      
       console.log(certificate);
+      const kycStatus = getStatusText(certificate[1]);
       html += `<tr>
           <th scope="row">${j+1}</th>
           <td>${certificate[2]}</td>
           <td>${certificate[3]}</td>
-          <td><a href="${certificate[0]}">View Document</a></td>
-          <td>${certificate[1]}</td>
-          <td style="color:green;"><button class='btn'>Approve the KYC</button> </td>
+          <td><a href="${certificate[0]}" target="_blank">View Document</a></td>
+          <td>${kycStatus}</td>
+          <td style="color:green;"><button onclick="App.KYCVerification('${certificate[2]}')" class='btn'>Approve the KYC</button> </td>
           </tr>`;
       j += 1;
     }
 
     tabel_body.innerHTML = html;
+  },
+
+  KYCVerification: async(industryID)=>{
+    await App.load();
+    console.log(industryID)
+    
+    function getCookieValue(cookieName) {
+        const cookies = document.cookie.split('; ');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].split('=');
+            if (cookie[0] === cookieName) {
+                return cookie[1];
+            }
+        }
+        return null;
+    }
+
+    const userRole = getCookieValue('role')
+
+    if(userRole == 'government'){
+        await App.contracts.kyc.methods
+        .verifyCertificate(industryID,1)
+        .send({ from: App.account });
+
+        window.location.href = "/kyc-verification";
+    }
   },
 
   FetchEmission: async () => {
