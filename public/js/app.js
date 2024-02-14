@@ -73,9 +73,9 @@ App = {
         App.contracts.token = new web3.eth.Contract(GreenCreditToken.abi, greenCreditTokenAddress)
 
         // KYC ABI
-        // const KYCContract = await $.getJSON('/contracts/KYC.json')
-        // const KYCContractAddress = ''
-        // App.contracts.kyc = new web3.eth.Contract(KYCContract.abi, KYCContractAddress)
+        const KYCContract = await $.getJSON('/contracts/KYC.json')
+        const KYCContractAddress = '0xe0168EB7b8c00417B216f1Ef73B339AfD6824B50'
+        App.contracts.kyc = new web3.eth.Contract(KYCContract.abi, KYCContractAddress)
     },
 
     connectWalletRegister: async () => {
