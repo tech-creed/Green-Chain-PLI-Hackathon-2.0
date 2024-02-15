@@ -20,6 +20,9 @@ The Carbon Emssion of the various industry has been stored in the XDC Blockchain
 - Realtime monitoring and tracking of Co2
 - Individual can contribute and get rewards
 
+# GreenChain Eco System Architecture
+![GCT Green Chain Flow](https://github.com/tech-creed/Green-Chain-PLI-Hackathon-2.0/assets/65155327/439e9b49-7ac5-4259-aca0-0668878f08b3)
+
 # Demo Application
 [![To be Updated](Image)](https://github.com/tech-creed/Green-Chain-PLI-Hackathon-2.0/assets/65155327/cbe6ab28-f651-4437-bd30-98dd56b29b01)
 ### Application Deployed Link - https://greenchain-coub.onrender.com/
@@ -68,7 +71,7 @@ The IPFS will start in, 127.0.0.1:5001
 - IPFS Server Check <br>
   ![image](https://github.com/tech-creed/Green-Chain-PLI-Hackathon-2.0/assets/65155327/fac9ab65-d546-4928-918d-fe33ca6f8ede)
 
-# Apotheum Testnet Deployed Contracts
+# Apothem Testnet Deployed Contracts
  - User Contract : 0x73a1637b532c203fD2Cb2f30DaC2A5C920D08E36
  - Co2 Emission Contract : 0xB2Bb3Dd210A16b4B13B1Da54DF3A1fe1037C03F0
  - GCT Tokem Contract : 0x2d5703C425E3277cCbfbA4d560c0513a10236A63
