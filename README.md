@@ -2,7 +2,7 @@
 Blockchain-Driven Carbon Management integrates blockchain for transparency, automated credit systems, XRC-20 tokens for carbon trading, AI predective analysis, pooling tokens, reward system, user-friendly interfaces, incentives, compliance, and public awareness. Revolutionizing emissions control for a sustainable future.
 
 ### Application Deployed Link - https://greenchain-coub.onrender.com/
-### Video Presentation Link - https://youtu.be/ifcckoBpvss
+### Video Presentation Link - https://youtu.be/S9uWZf2zyeQ
 
 ### Deployed Contracts (XDC testnet Apothem),
 - User Contract : https://explorer.apothem.network/address/0x73a1637b532c203fD2Cb2f30DaC2A5C920D08E36
