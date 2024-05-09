@@ -1,3 +1,10 @@
+This project is for personal use only. If you intend to use it for commercial purposes, please contact me for further details.
+
+For inquiries regarding commercial use, please contact:
+- Name: MUKILAN S
+- Email: mukilan.coder@gmail.com
+- Phone: 9080399842
+
 # Green-Chain-PLI-Hackathon-2.0
 Blockchain-Driven Carbon Management integrates blockchain for transparency, automated credit systems, XRC-20 tokens for carbon trading, AI predective analysis, pooling tokens, reward system, user-friendly interfaces, incentives, compliance, and public awareness. Revolutionizing emissions control for a sustainable future.
 
